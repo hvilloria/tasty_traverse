@@ -3,13 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from routes import users
 from models import db
 from flask_migrate import Migrate
-from os import environ
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DB_URL')
+app.config.from_object('config.DevelopmentConfig')
 app.config['SQLALCHEMY_RECORD_QUERIES'] = True
 db.init_app(app)
 Migrate(app, db)
